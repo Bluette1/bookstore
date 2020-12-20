@@ -27,6 +27,7 @@ class BooksForm extends React.Component {
       createBook(title, category);
       // resets the component's state
       this.setState({ title: '', category: '' });
+      document.getElementById('book-select').selectedIndex = 0;
     };
 
     render() {
