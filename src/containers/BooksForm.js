@@ -8,15 +8,15 @@ class BooksForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { title: '', category: '' };
-    this.updateCategory = this.updateCategory.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
+    this.handleChangeCategory = this.handleChangeCategory.bind(this);
+    this.handleChangeTitle = this.handleChangeTitle.bind(this);
   }
 
-    updateTitle = title => {
+    handleChangeTitle = title => {
       this.setState({ title });
     };
 
-    updateCategory = category => {
+    handleChangeCategory = category => {
       this.setState({ category });
     };
 
@@ -25,7 +25,7 @@ class BooksForm extends React.Component {
       const { props: { createBook } } = this;
       const { state: { title, category } } = this;
       createBook(title, category);
-      // sets state back to initial values
+      // resets the component's state
       this.setState({ title: '', category: '' });
     };
 
@@ -34,7 +34,7 @@ class BooksForm extends React.Component {
       return (
         <div>
           <input
-            onChange={e => this.updateTitle(e.target.value)}
+            onChange={e => this.handleChangeTitle(e.target.value)}
             value={title}
           />
           <label htmlFor="book-select">
@@ -42,7 +42,7 @@ class BooksForm extends React.Component {
             <select
               name="book-categories"
               id="book-select"
-              onChange={e => this.updateCategory(e.target.value)}
+              onChange={e => this.handleChangeCategory(e.target.value)}
             >
               <option>--Please choose a category--</option>
               {BOOK_CATEGORIES.map(option => (

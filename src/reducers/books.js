@@ -16,9 +16,9 @@ export default function books(state = [], action) {
       ];
     }
     case REMOVE_BOOK: {
-      const { book } = action.book;
+      const { book: { id } } = action;
       const books = [...state];
-      return findAndDeleteBook(books, book.id);
+      return findAndDeleteBook(books, id);
     }
     default:
       return state;
