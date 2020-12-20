@@ -11,9 +11,13 @@ const BooksList = ({ books }) => (
       </tr>
     </thead>
     <tbody>
-      {books && books.length
-        ? books.map(book => <Book key={`book-${book.id}`} book={book} />)
-        : 'No books added yet.'}
+      {books && books.length ? (
+        books.map(book => <Book key={`book-${book.id}`} book={book} />)
+      ) : (
+        <tr>
+          <th>&apos;No books added yet.&apos;</th>
+        </tr>
+      )}
     </tbody>
   </table>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Book = ({ book }) => {
+export default function Book({ book }) {
   const { ID, title, category } = book;
   return (
     <tr className="book">
@@ -10,7 +10,7 @@ const Book = ({ book }) => {
       <td>{category}</td>
     </tr>
   );
-};
+}
 
 Book.propTypes = {
   book: PropTypes.objectOf(PropTypes.string).isRequired,
