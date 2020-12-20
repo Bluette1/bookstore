@@ -2,38 +2,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BOOK_CATEGORIES from '../constants';
-import { bookAction } from '../actions';
+import { createBook } from '../actions/index';
 
 class BooksForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { input: '', category: '' };
+    this.state = { title: '', category: '' };
   }
 
-    updateInput = input => {
-      this.setState({ input });
+    updateTitle = title => {
+      this.setState({ title });
     };
 
     updateCategory = category => {
       this.setState({ category });
     };
 
-    handleBookAction = () => {
+    handleCreateBook = () => {
       // dispatches actions to add or remove a book
-      const { props: { bookAction } } = this;
-      const { state: { input } } = this;
-      bookAction(input);
+      const { props: { createBook } } = this;
+      const { state: { title, category } } = this;
+      createBook(title, category);
       // sets state back to initial values
-      this.setState({ input: '', category: '' });
+      this.setState({ title: '', category: '' });
     };
 
     render() {
-      const { state: { input, category } } = this;
+      const { state: { title, category } } = this;
       return (
         <div>
           <input
-            onChange={e => this.updateInput(e.target.value)}
-            value={input}
+            onChange={e => this.updateTitle(e.target.value)}
+            value={title}
           />
           <label htmlFor="book-select">
             Choose a category:
@@ -49,9 +49,6 @@ class BooksForm extends React.Component {
             <button type="button" className="submit" onClick={this.handleBookAction}>
               Add Book
             </button>
-            <button type="button" className="submit" onClick={this.handleBookAction}>
-              Remove Book
-            </button>
           </div>
         </div>
       );
@@ -59,10 +56,10 @@ class BooksForm extends React.Component {
 }
 
 BooksForm.propTypes = {
-  bookAction: PropTypes.func.isRequired,
+  createBook: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { bookAction },
+  { createBook },
 )(BooksForm);
