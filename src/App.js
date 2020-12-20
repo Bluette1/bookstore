@@ -6,7 +6,7 @@ import BooksList from './containers/BooksList';
 export default function App() {
   return (
     <div className="bookstore-app">
-      <h1>Bookstoria</h1>
+      <h1 className="bookstore-heading">Bookstoria</h1>
       <BooksList />
       <BooksForm />
     </div>

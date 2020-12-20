@@ -20,7 +20,7 @@ class BooksForm extends React.Component {
       this.setState({ category });
     };
 
-    handleCreateBook = () => {
+    handleSubmit = () => {
       // dispatches actions to add or remove a book
       const { props: { createBook } } = this;
       const { state: { title, category } } = this;
@@ -35,6 +35,7 @@ class BooksForm extends React.Component {
       return (
         <div>
           <input
+            className="input-title"
             onChange={e => this.handleChangeTitle(e.target.value)}
             value={title}
           />
@@ -42,6 +43,7 @@ class BooksForm extends React.Component {
             Choose a category:
             <select
               name="book-categories"
+              className="book-categories"
               id="book-select"
               onChange={e => this.handleChangeCategory(e.target.value)}
             >
@@ -58,7 +60,7 @@ class BooksForm extends React.Component {
             <button
               type="button"
               className="submit"
-              onClick={this.handleCreateBook}
+              onClick={this.handleSubmit}
             >
               Add Book
             </button>

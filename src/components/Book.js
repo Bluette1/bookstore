@@ -6,14 +6,14 @@ import { removeBook } from '../actions/index';
 const Book = ({ book, handleRemoveBook }) => {
   const { id, title, category } = book;
   return (
-    <tr className="book">
+    <tr>
       <td>{id}</td>
       <td>{title}</td>
       <td>{category}</td>
       <td>
         <button
           type="button"
-          className="submit"
+          className="submit-delete"
           onClick={() => handleRemoveBook(book)}
         >
           Remove Book

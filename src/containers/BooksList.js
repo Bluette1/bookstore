@@ -7,7 +7,7 @@ const BooksList = ({ books }) => (
   <table className="books-list">
     <thead>
       <tr>
-        <th colSpan="2">The Books List</th>
+        <th colSpan="2" className="table-heading">The Books List</th>
       </tr>
     </thead>
     <tbody>
@@ -15,7 +15,7 @@ const BooksList = ({ books }) => (
         books.map(book => <Book key={`book-${book.id}`} book={book} />)
       ) : (
         <tr>
-          <th>&apos;No books added yet.&apos;</th>
+          <th className="no-books">&apos;No books added yet.&apos;</th>
         </tr>
       )}
     </tbody>
