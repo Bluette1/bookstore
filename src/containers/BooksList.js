@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Book from '../components/Book';
-import { removeBook } from '../actions/index';
 
-const BooksList = ({ books, removeBook }) => (
+const BooksList = ({ books }) => (
   <table className="books-list">
     <thead>
       <tr>
@@ -13,7 +12,7 @@ const BooksList = ({ books, removeBook }) => (
     </thead>
     <tbody>
       {books && books.length ? (
-        books.map(book => <Book key={`book-${book.id}`} book={book} handleRemoveBook={removeBook} />)
+        books.map(book => <Book key={`book-${book.id}`} book={book} />)
       ) : (
         <tr>
           <th>&apos;No books added yet.&apos;</th>
@@ -24,13 +23,12 @@ const BooksList = ({ books, removeBook }) => (
 );
 
 const mapStateToProps = state => {
-  const { books } = state;
+  const { books } = state.books;
   return { books };
 };
 
 BooksList.propTypes = {
   books: PropTypes.arrayOf(PropTypes.object).isRequired,
-  removeBook: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { removeBook })(BooksList);
+export default connect(mapStateToProps)(BooksList);

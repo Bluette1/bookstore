@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { removeBook } from '../actions/index';
 
 const Book = ({ book, handleRemoveBook }) => {
   const { id, title, category } = book;
@@ -12,7 +14,7 @@ const Book = ({ book, handleRemoveBook }) => {
         <button
           type="button"
           className="submit"
-          onClick={() => handleRemoveBook(id)}
+          onClick={() => handleRemoveBook(book)}
         >
           Remove Book
         </button>
@@ -26,4 +28,4 @@ Book.propTypes = {
   handleRemoveBook: PropTypes.func.isRequired,
 };
 
-export default Book;
+export default connect(null, { handleRemoveBook: removeBook })(Book);
