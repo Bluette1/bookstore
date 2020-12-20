@@ -7,7 +7,7 @@ const findAndDeleteBook = (books, id) => books.map((book, idx) => {
   return books;
 });
 
-export default function todos(state = [], action) {
+export default function books(state = [], action) {
   switch (action.type) {
     case CREATE_BOOK: {
       return [

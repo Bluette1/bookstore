@@ -8,6 +8,8 @@ class BooksForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { title: '', category: '' };
+    this.updateCategory = this.updateCategory.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
   }
 
     updateTitle = title => {
@@ -28,7 +30,7 @@ class BooksForm extends React.Component {
     };
 
     render() {
-      const { state: { title, category } } = this;
+      const { state: { title } } = this;
       return (
         <div>
           <input
@@ -37,16 +39,26 @@ class BooksForm extends React.Component {
           />
           <label htmlFor="book-select">
             Choose a category:
-            <select name="book-categories" id="book-select">
-              <option value={category} onChange={e => this.updateCategory(e.target.value)}>
-                --Please choose a category--
-              </option>
-              {BOOK_CATEGORIES.map(option => <option key={option} value={`${option}`}>{option}</option>)}
+            <select
+              name="book-categories"
+              id="book-select"
+              onChange={e => this.updateCategory(e.target.value)}
+            >
+              <option>{category}</option>
+              {BOOK_CATEGORIES.map(option => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
               ;
             </select>
           </label>
-          <div className="submitBtns">
-            <button type="button" className="submit" onClick={this.handleBookAction}>
+          <div className="submitBtn">
+            <button
+              type="button"
+              className="submit"
+              onClick={this.handleCreateBook}
+            >
               Add Book
             </button>
           </div>

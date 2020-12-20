@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Book({ book }) {
-  const { ID, title, category } = book;
+  const { id, title, category } = book;
   return (
     <tr className="book">
-      <td>{ID}</td>
+      <td>{id}</td>
       <td>{title}</td>
       <td>{category}</td>
     </tr>
