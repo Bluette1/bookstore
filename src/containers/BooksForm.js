@@ -44,7 +44,7 @@ class BooksForm extends React.Component {
               id="book-select"
               onChange={e => this.updateCategory(e.target.value)}
             >
-              <option>{category}</option>
+              <option>--Please choose a category--</option>
               {BOOK_CATEGORIES.map(option => (
                 <option key={option} value={option}>
                   {option}
