@@ -5,7 +5,7 @@ import { changeFilter } from '../actions/index';
 import { BOOK_CATEGORIES } from '../constants';
 
 const CategoryFilter = ({ handleFilterChange }) => {
-  const bookCategories = [...BOOK_CATEGORIES, 'all'];
+  const bookCategories = [...BOOK_CATEGORIES, 'All'];
   return (
     <label htmlFor="book-select">
       Filter according to category:
