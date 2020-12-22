@@ -6,25 +6,25 @@ import getBooksByFilter from '../selectors';
 import CategoryFilter from '../components/CategoryFilter';
 
 const BooksList = ({ books }) => (
-  <table className="books-list">
-    <thead>
-      <tr>
-        <th colSpan="2" className="table-heading">The Books List</th>
-      </tr>
-    </thead>
-    <tbody>
-      {books && books.length ? (
-        books.map(book => <Book key={`book-${book.id}`} book={book} />)
-      ) : (
+  <div>
+    <table className="books-list">
+      <thead>
         <tr>
-          <th className="no-books">&apos;No books added yet.&apos;</th>
+          <th colSpan="2" className="table-heading">The Books List</th>
         </tr>
-      )}
-      <tr>
-        <CategoryFilter />
-      </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {books && books.length ? (
+          books.map(book => <Book key={`book-${book.id}`} book={book} />)
+        ) : (
+          <tr>
+            <th className="no-books">&apos;No books added yet.&apos;</th>
+          </tr>
+        )}
+      </tbody>
+    </table>
+    <CategoryFilter />
+  </div>
 );
 
 const mapStateToProps = state => {
