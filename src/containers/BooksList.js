@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Book from '../components/Book';
 import getBooksByFilter from '../selectors';
+import CategoryFilter from '../components/CategoryFilter';
 
 const BooksList = ({ books }) => (
   <table className="books-list">
@@ -19,6 +20,9 @@ const BooksList = ({ books }) => (
           <th className="no-books">&apos;No books added yet.&apos;</th>
         </tr>
       )}
+      <tr>
+        <CategoryFilter />
+      </tr>
     </tbody>
   </table>
 );

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeFilter } from '../actions/index';
-import BOOK_CATEGORIES from '../constants';
+import { BOOK_CATEGORIES } from '../constants';
 
 const CategoryFilter = ({ handleFilterChange }) => {
   const bookCategories = [...BOOK_CATEGORIES, 'all'];
