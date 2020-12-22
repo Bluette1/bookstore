@@ -15,7 +15,7 @@ const CategoryFilter = ({ handleFilterChange }) => {
         id="book-filter"
         onChange={e => handleFilterChange(e.target.value)}
       >
-        <option>--Please choose a category--</option>
+        <option>--Filter books according to category--</option>
         {bookCategories.map(option => (
           <option key={option} value={option}>
             {option}

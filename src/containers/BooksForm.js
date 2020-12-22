@@ -34,6 +34,7 @@ class BooksForm extends React.Component {
       const { state: { title } } = this;
       return (
         <div>
+          <h3 className="add-book-heading">Add a book:</h3>
           <input
             className="input-title"
             onChange={e => this.handleChangeTitle(e.target.value)}
