@@ -8,4 +8,15 @@ const BOOK_CATEGORIES = [
   'Sci-Fi',
 ];
 
-export default BOOK_CATEGORIES;
+const FILTERS = {
+  ALL: 'all',
+  ACTION: 'Action',
+  BIOGRAPHY: 'Biography',
+  HISTORY: 'History',
+  HORROR: 'Horror',
+  KIDS: 'Kids',
+  LEARNING: 'Learning',
+  SCI_FI: 'Sci-Fi',
+};
+
+export { BOOK_CATEGORIES, FILTERS };

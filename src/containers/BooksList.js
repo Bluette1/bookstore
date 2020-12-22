@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Book from '../components/Book';
+import getBooksByFilter from '../selectors';
 
 const BooksList = ({ books }) => (
   <table className="books-list">
@@ -23,7 +24,8 @@ const BooksList = ({ books }) => (
 );
 
 const mapStateToProps = state => {
-  const { books } = state.books;
+  const { filter } = state;
+  const books = getBooksByFilter(state, filter);
   return { books };
 };
 
