@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Book from '../components/Book';
 import getBooksByFilter from '../selectors';
-import CategoryFilter from '../components/CategoryFilter';
 
 const BooksList = ({ books }) => (
   <div>
@@ -12,7 +11,6 @@ const BooksList = ({ books }) => (
     ) : (
       <p className="no-books">&apos;No books added yet.&apos;</p>
     )}
-    <CategoryFilter />
   </div>
 );
 
