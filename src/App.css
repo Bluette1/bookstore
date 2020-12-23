@@ -58,19 +58,89 @@
 
 .content {
   background-color: #faf8f8;
+  margin-top: -15px;
 }
 
-tr {
+row {
   /* width: 1200px; */
-  height: 170px;
+  /* height: 170px; */
   /* margin-top: 40px; */
   /* width: 100%; */
   /* padding-top: 40px; */
   /* margin: 0 1px 15px 0; */
   /* padding: 32px 119px 26px 27px; */
+  display: flex;
+  justify-content: space-between;
   padding-right: 100px;
   padding-left: 100px;
   border-radius: 4px;
   border: solid 1px #e8e8e8;
   background-color: #ffffff;
+}
+
+.category {
+  width: 49px;
+  height: 18px;
+  margin: 0 39px 0 0;
+  opacity: 0.5;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.title {
+  width: 197px;
+  height: 29px;
+  margin: 3px 323px 0 0;
+  font-family: RobotoSlab;
+  font-size: 22px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.2px;
+  color: #121212;
+}
+
+.percentage {
+  width: 68px;
+  height: 68px;
+  border-style: solid;
+  border-width: 5px;
+  border-image-source: linear-gradient(to bottom, #307bbe, #379cf6);
+  border-image-slice: 1;
+}
+
+.current-chapter {
+  width: 126px;
+  height: 18px;
+  margin: 1px 86px 0 59px;
+  opacity: 0.5;
+  font-family: RobotoSlab;
+  font-size: 13px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.current-lesson {
+  width: 212px;
+  height: 21px;
+  margin: 7px 0 4px 59px;
+  font-family: RobotoSlab;
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  color: #121212;
 }
