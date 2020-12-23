@@ -23,7 +23,7 @@ const Book = ({ book, handleRemoveBook }) => {
     //     </button>
     //   </td>
     // </tr>
-    <div className="row">
+    <div className="book-row">
       <div>
         <p className="category">{category}</p>
         <h4 className="title">{title}</h4>

@@ -6,7 +6,7 @@ import logo from './logo.png';
 
 export default function App() {
   return (
-    <div>
+    <div className="content">
       <div className="header">
         <ul className="bookstore-heading">
           <li>
@@ -18,7 +18,7 @@ export default function App() {
         </ul>
         <i className="fas fa-user-circle fa-3x" aria-hidden="true" />
       </div>
-      <div className="content">
+      <div>
         <BooksList />
         <BooksForm />
       </div>
