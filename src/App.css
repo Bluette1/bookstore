@@ -56,6 +56,7 @@ ul {
 
 .fa-user-circle {
   padding-top: 25px;
+  color: #0290ff;
 }
 
 .content {
@@ -64,19 +65,8 @@ ul {
 }
 
 .book-row {
-  /* width: 1200px; */
-
-  /* height: 170px; */
-
-  /* margin-top: 40px; */
-
-  /* width: 100%; */
-
-  /* padding-top: 40px; */
-
-  /* margin: 0 1px 15px 0; */
-
-  /* padding: 32px 119px 26px 27px; */
+  height: 170px;
+  padding: 32px 119px 26px 27px;
   margin-top: 40px;
   display: flex;
   justify-content: space-between;
@@ -156,4 +146,33 @@ ul {
 
 .progressBar {
   width: 68px;
+}
+
+.comments-section {
+  width: 73px;
+  height: 19px;
+  margin-left: -2.5rem;
+  font-family: 'Roboto Slab', serif;
+  font-size: 14px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4386bf;
+}
+.comments-section li {
+  margin-right: 3px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-right: 12px;
+  cursor: pointer;
+}
+
+.comments-section li:not(:last-child) {
+  border-right: solid 1px #e8e8e8;
+}
+
+.comments-section li:not(:first-child) {
+  margin-left: 2px;
 }

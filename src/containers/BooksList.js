@@ -7,22 +7,11 @@ import CategoryFilter from '../components/CategoryFilter';
 
 const BooksList = ({ books }) => (
   <div>
-    {/* <table className="books-list"> */}
-    {/* <thead> */}
-    {/* <tr> */}
-    {/* <th colSpan="2" className="table-heading">The Books List</th> */}
-    {/* </tr> */}
-    {/* </thead>
-      <tbody> */}
     {books && books.length ? (
       books.map(book => <Book key={`book-${book.id}`} book={book} />)
     ) : (
-      // <tr>
       <p className="no-books">&apos;No books added yet.&apos;</p>
-      // </tr>
     )}
-    {/* </tbody>
-    </table> */}
     <CategoryFilter />
   </div>
 );

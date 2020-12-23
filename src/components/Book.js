@@ -9,25 +9,11 @@ const Book = ({ book, handleRemoveBook }) => {
   const { title, category } = book;
   const value = 0.66;
   return (
-    // <tr>
-    //   <td>{id}</td>
-    //   <td>{title}</td>
-    //   <td>{category}</td>
-    //   <td>
-    //     <button
-    //       type="button"
-    //       className="submit-delete"
-    //       onClick={() => handleRemoveBook(book)}
-    //     >
-    //       Remove Book
-    //     </button>
-    //   </td>
-    // </tr>
     <div className="book-row">
-      <div>
+      <div className="title-category">
         <p className="category">{category}</p>
         <h4 className="title">{title}</h4>
-        <ul className="update">
+        <ul className="comments-section">
           <li>Comments</li>
           <li aria="hidden" role="presentation" onClick={() => handleRemoveBook(book)}>Remove</li>
           <li>Edit</li>
