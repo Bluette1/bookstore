@@ -19,9 +19,15 @@ const Book = ({ book, handleRemoveBook }) => {
           <li>Edit</li>
         </ul>
       </div>
-      <div>
+      <div className="progress">
         <div className="progressBar">
           <CircularProgressbar className="progressBar" value={value} maxValue={1} />
+        </div>
+        <div>
+          <h4 className="percent">
+            {`${value * 100}%`}
+          </h4>
+          <p className="completed">Completed</p>
         </div>
       </div>
       <div>

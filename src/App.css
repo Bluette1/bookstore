@@ -106,15 +106,6 @@ ul {
   color: #121212;
 }
 
-.percentage {
-  width: 68px;
-  height: 68px;
-  border-style: solid;
-  border-width: 5px;
-  border-image-source: linear-gradient(to bottom, #307bbe, #379cf6);
-  border-image-slice: 1;
-}
-
 .current-chapter {
   width: 126px;
   height: 18px;
@@ -175,4 +166,39 @@ ul {
 
 .comments-section li:not(:first-child) {
   margin-left: 2px;
+}
+
+.percent {
+  width: 68px;
+  height: 39px;
+  margin: 1px 92px 0 11px;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.completed {
+  width: 80px;
+  height: 18px;
+  margin: 7px 79px 12px 12px;
+  opacity: 0.5;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.progress {
+  display: flex;
+  justify-content: space-between;
+  /* margin-left: 10px; */
 }
