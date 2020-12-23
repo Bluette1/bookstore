@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
 
-.bookstore-heading {
+ul {
   display: flex;
   list-style: none;
 }
@@ -69,6 +69,7 @@ row {
   /* padding-top: 40px; */
   /* margin: 0 1px 15px 0; */
   /* padding: 32px 119px 26px 27px; */
+  margin-top: 40px;
   display: flex;
   justify-content: space-between;
   padding-right: 100px;
@@ -143,4 +144,8 @@ row {
   line-height: normal;
   letter-spacing: -0.4px;
   color: #121212;
+}
+
+.progressBar {
+  width: 68px;
 }

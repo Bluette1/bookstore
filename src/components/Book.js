@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import { removeBook } from '../actions/index';
 
 const Book = ({ book, handleRemoveBook }) => {
   const { title, category } = book;
+  const value = 0.66;
   return (
     // <tr>
     //   <td>{id}</td>
@@ -31,7 +34,9 @@ const Book = ({ book, handleRemoveBook }) => {
         </ul>
       </div>
       <div>
-        <div className="percentage" />
+        <div className="progressBar">
+          <CircularProgressbar className="progressBar" value={value} maxValue={1} />
+        </div>
       </div>
       <div>
         <h4 className="current-chapter">CURRENT CHAPTER</h4>
