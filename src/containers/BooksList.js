@@ -8,9 +8,7 @@ const BooksList = ({ books }) => (
   <div>
     {books && books.length ? (
       books.map(book => <Book key={`book-${book.id}`} book={book} />)
-    ) : (
-      <p className="no-books">&apos;No books added yet.&apos;</p>
-    )}
+    ) : null}
   </div>
 );
 
