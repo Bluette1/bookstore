@@ -7,23 +7,20 @@ import { BOOK_CATEGORIES } from '../constants';
 const CategoryFilter = ({ handleFilterChange }) => {
   const bookCategories = [...BOOK_CATEGORIES, 'All'];
   return (
-    <label htmlFor="book-select">
-      Filter according to category:
-      <select
-        name="book-categories"
-        className="book-categories"
-        id="book-filter"
-        onChange={e => handleFilterChange(e.target.value)}
-      >
-        <option>--Filter books according to category--</option>
-        {bookCategories.map(option => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-        ;
-      </select>
-    </label>
+    <select
+      name="book-categories"
+      className="book-categories"
+      id="book-filter"
+      onChange={e => handleFilterChange(e.target.value)}
+    >
+      <option>CATEGORIES</option>
+      {bookCategories.map(option => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+      ;
+    </select>
   );
 };
 

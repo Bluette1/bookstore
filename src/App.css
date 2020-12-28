@@ -1,39 +1,341 @@
-.App {
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap');
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+ul {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  list-style: none;
 }
 
-.App-link {
-  color: #61dafb;
+.bookstore-heading li,
+.bookstore-heading select {
+  padding-right: 10px;
+  margin-right: 50px;
+  width: 59px;
+  height: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1.9px;
+  color: #121212;
+  padding-top: 18px;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.bookstore-heading select {
+  width: 135px;
+  padding-top: unset;
+  padding-left: 3px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.comments-section li {
+  margin-right: 3px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-right: 12px;
+  cursor: pointer;
+}
+
+.bookstore-heading li:first-child {
+  width: 250px;
+  height: 37px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #0290ff;
+  padding-top: 0;
+}
+
+.app-logo {
+  width: 60px;
+  vertical-align: middle;
+  padding: 5px;
+  margin-right: 23px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 100px;
+  padding-left: 60px;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 18px;
+  background-color: #fff;
+}
+
+.fa-user-circle {
+  padding-top: 25px;
+  color: #0290ff;
+}
+
+.content {
+  background-color: #faf8f8;
+  margin-top: -35px;
+}
+
+.book-row {
+  height: 170px;
+  padding: 32px 119px 26px 27px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 100px;
+  margin-left: 100px;
+  border-radius: 4px;
+  border: solid 1px #e8e8e8;
+  background-color: #fff;
+}
+
+.category {
+  width: 49px;
+  height: 18px;
+  margin: 0 39px 0 0;
+  opacity: 0.5;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.title {
+  width: 197px;
+  height: 29px;
+  margin: 3px 323px 0 0;
+  font-family: 'Roboto Slab', serif;
+  font-size: 22px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.2px;
+  color: #121212;
+}
+
+.current-chapter {
+  width: 126px;
+  height: 18px;
+  margin: 1px 86px 0 59px;
+  opacity: 0.5;
+  font-family: 'Roboto Slab', serif;
+  font-size: 13px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.current-lesson {
+  width: 212px;
+  height: 21px;
+  margin: 7px 0 4px 59px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  color: #121212;
+}
+
+.progressBar {
+  width: 68px;
+}
+
+.comments-section {
+  width: 73px;
+  height: 19px;
+  margin-left: -2.5rem;
+  font-family: 'Roboto Slab', serif;
+  font-size: 14px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4386bf;
+}
+
+.comments-section li:not(:last-child) {
+  border-right: solid 1px #e8e8e8;
+}
+
+.comments-section li:not(:first-child) {
+  margin-left: 2px;
+}
+
+.percent {
+  width: 68px;
+  height: 39px;
+  margin: 1px 92px 0 11px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.completed {
+  width: 80px;
+  height: 18px;
+  margin: 7px 79px 12px 12px;
+  opacity: 0.5;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.progress {
+  display: flex;
+  justify-content: space-between;
+}
+
+.update-progress-btn {
+  width: 184px;
+  height: 33px;
+  margin: 12px 0 9px 59px;
+  padding: 7px 19px 8px 22px;
+  border-radius: 3px;
+  background-color: #0290ff;
+  border: #0290ff;
+}
+
+.update-progress {
+  width: 143px;
+  height: 18px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 13px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #fff;
+}
+
+.form-title {
+  width: 174px;
+  height: 24px;
+  margin: 29px 524px 19px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.18px;
+  color: #888;
+}
+
+.book-form {
+  margin-left: 100px;
+  margin-bottom: 300px;
+  padding-bottom: 20px;
+}
+
+.input-title {
+  width: 500px;
+  height: 45px;
+  margin: 19px 34px 0 0;
+  padding: 13px 167px 13px 17px;
+  border-radius: 4px;
+  border: solid 1px #e8e8e8;
+  background-color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.15px;
+  color: #c4c4c4;
+}
+
+.input-title::placeholder {
+  height: 19px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.15px;
+  color: #c4c4c4;
+}
+
+select.choose-category {
+  width: 250px;
+  height: 45px;
+  margin: 19px 34px 0;
+  padding: 6px 15px 9px 16px;
+  border-radius: 4px;
+  border: solid 1px #e8e8e8;
+  background-color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.15px;
+  color: #c4c4c4;
+}
+
+select.choose-category option {
+  width: 72px;
+  height: 19px;
+  margin: 7px 167px 4px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.15px;
+  color: #c4c4c4;
+}
+
+.submit {
+  width: 184px;
+  height: 45px;
+  margin: 19px 0 0 34px;
+  padding: 12.8px 19px 14.2px 22px;
+  border-radius: 3px;
+  background-color: #0290ff;
+  border: #0290ff;
+}
+
+.add-book {
+  width: 143px;
+  height: 18px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #fff;
 }

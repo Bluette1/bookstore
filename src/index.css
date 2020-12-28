@@ -1,3 +1,15 @@
+@import-normalize; /* bring in normalize.css styles */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   font-family:
@@ -14,20 +26,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
-code {
-  font-family:
-    source-code-pro,
-    Menlo,
-    Monaco,
-    Consolas,
-    'Courier New',
-    monospace;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  justify-content: center;
+  background-color: #f5f6fa;
 }
 
 .submitBtn {
@@ -57,11 +61,18 @@ td {
   margin-left: 30px;
 }
 
-.bookstore-heading {
-  padding: 60px;
-}
-
 .add-book-heading {
   padding: 10px;
   margin-top: 65px;
+}
+
+table {
+  margin-bottom: 30px;
+}
+
+.root {
+  margin: 9% 7%;
+  border-radius: 4px;
+  box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.05);
+  background-color: white;
 }
