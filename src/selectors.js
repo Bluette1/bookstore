@@ -2,6 +2,7 @@ import { FILTERS } from './constants';
 
 const getBooksByFilter = (store, filter) => {
   const allBooks = store.books;
+
   switch (filter) {
     case FILTERS.ACTION:
       return allBooks.filter(book => book.category === FILTERS.ACTION);

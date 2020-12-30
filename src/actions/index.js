@@ -1,4 +1,6 @@
-import { REMOVE_BOOK, CREATE_BOOK, CHANGE_FILTER } from './actionTypes';
+import {
+  REMOVE_BOOK, CREATE_BOOK, CHANGE_FILTER, REGISTER_BOOKS,
+} from './actionTypes';
 
 function getRandomIntInclusive(lower, upper) {
   const min = Math.ceil(lower);
@@ -18,6 +20,11 @@ export const createBook = (title, category) => ({
 export const removeBook = book => ({
   type: REMOVE_BOOK,
   book,
+});
+
+export const registerBooks = books => ({
+  type: REGISTER_BOOKS,
+  books,
 });
 
 export const changeFilter = filter => ({ type: CHANGE_FILTER, filter });
