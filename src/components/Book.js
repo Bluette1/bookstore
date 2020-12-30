@@ -15,7 +15,7 @@ const Book = ({ book, handleRemoveBook }) => {
         <h4 className="title">{title}</h4>
         <ul className="comments-section">
           <li>Comments</li>
-          <li aria="hidden" role="presentation" onClick={() => handleRemoveBook(book)}>Remove</li>
+          <li aria-hidden="true" role="presentation" onClick={() => handleRemoveBook(book)}>Remove</li>
           <li>Edit</li>
         </ul>
       </div>
@@ -40,7 +40,7 @@ const Book = ({ book, handleRemoveBook }) => {
 };
 
 Book.propTypes = {
-  book: PropTypes.objectOf(PropTypes.string).isRequired,
+  book: PropTypes.objectOf(PropTypes.any).isRequired,
   handleRemoveBook: PropTypes.func.isRequired,
 };
 

@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { BOOK_CATEGORIES } from '../constants';
+import { createBook } from '../actions/index';
 
 class BooksForm extends React.Component {
   constructor(props) {
@@ -20,11 +23,10 @@ class BooksForm extends React.Component {
 
     handleSubmit = () => {
       const { state: { title, category } } = this;
-      console.log('title: ', title);
-      console.log('category', category);
+      const { props: { createBook } } = this;
       axios.post('http://localhost:3000/books', { title, category })
-        .then(() => {
-          window.location.reload();
+        .then(response => {
+          createBook(response.data);
         });
 
       // resets the component's state
@@ -69,4 +71,7 @@ class BooksForm extends React.Component {
     }
 }
 
-export default BooksForm;
+BooksForm.propTypes = {
+  createBook: PropTypes.func.isRequired,
+};
+export default connect(null, { createBook })(BooksForm);
