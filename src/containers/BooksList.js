@@ -8,7 +8,7 @@ import { registerBooks } from '../actions/index';
 
 class BooksList extends React.Component {
   componentDidMount() {
-    axios.get('http://localhost:3000/books', { mode: 'cors' })
+    axios.get('http://localhost:3000/books')
       .then(response => {
         const { props: { registerBooks } } = this;
         registerBooks(response.data);
