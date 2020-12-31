@@ -16,6 +16,7 @@ class Book extends React.Component {
     this.handleRemoveBook = this.handleRemoveBook.bind(this);
     this.handleChangePagesRead = this.handleChangePagesRead.bind(this);
     this.handleChangeTotalPages = this.handleChangeTotalPages.bind(this);
+    this.handleChangeCurrentChapter = this.handleChangeCurrentChapter.bind(this);
     this.hideUpdateForm = this.hideUpdateForm.bind(this);
     this.showUpdateForm = this.showUpdateForm.bind(this);
   }
@@ -93,7 +94,7 @@ class Book extends React.Component {
                   <label htmlFor="book-title">{title}</label>
                   <input id="pages-read" name="pages-read" placeholder="pages read" type="number" onChange={e => this.handleChangePagesRead(e.target.value)} />
                   <input id="total-pages" name="total-pages" placeholder="total-pages" type="number" onChange={e => this.handleChangeTotalPages(e.target.value)} />
-                  <input id="current-chapter" name="current-chapter" placeholder="current chapter" type="text" />
+                  <input id="current-chapter" name="current-chapter" placeholder="current chapter" type="text" onChange={e => this.handleChangeCurrentChapter(e.target.value)} />
                   <button type="submit" onClick={() => this.hideUpdateForm()}>OK</button>
                 </form>
               </div>
