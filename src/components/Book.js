@@ -5,12 +5,9 @@ import axios from 'axios';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { removeBook } from '../actions/index';
+import { httpProtocol, host, port } from '../envVariables';
 
 const handleRemoveBook = (book, removeBook) => {
-  const httpProtocol = process.env.REACT_APP_REQUEST_OPTIONS_HTTP_PROTOCOL;
-  const host = process.env.REACT_APP_REQUEST_OPTIONS_HOST;
-  const port = process.env.REACT_APP_REQUEST_OPTIONS_PORT;
-
   axios.delete(`${httpProtocol}://${host}:${port}/books/${book.id}`)
     .then(() => {
       removeBook(book);

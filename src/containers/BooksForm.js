@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BOOK_CATEGORIES } from '../constants';
 import { createBook } from '../actions/index';
+import { httpProtocol, host, port } from '../envVariables';
 
 class BooksForm extends React.Component {
   constructor(props) {
@@ -25,11 +26,6 @@ class BooksForm extends React.Component {
     handleSubmit = () => {
       const { state: { title, category } } = this;
       const { props: { createBook } } = this;
-
-      const httpProtocol = process.env.REACT_APP_REQUEST_OPTIONS_HTTP_PROTOCOL;
-      const host = process.env.REACT_APP_REQUEST_OPTIONS_HOST;
-      const port = process.env.REACT_APP_REQUEST_OPTIONS_PORT;
-
       axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category })
         .then(response => {
           createBook(response.data);
