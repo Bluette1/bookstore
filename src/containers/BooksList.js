@@ -8,7 +8,10 @@ import { registerBooks } from '../actions/index';
 
 class BooksList extends React.Component {
   componentDidMount() {
-    axios.get('http://localhost:3000/books')
+    const httpProtocol = process.env.REACT_APP_REQUEST_OPTIONS_HTTP_PROTOCOL;
+    const host = process.env.REACT_APP_REQUEST_OPTIONS_HOST;
+    const port = process.env.REACT_APP_REQUEST_OPTIONS_PORT;
+    axios.get(`${httpProtocol}://${host}:${port}/books`)
       .then(response => {
         const { props: { registerBooks } } = this;
         registerBooks(response.data);
