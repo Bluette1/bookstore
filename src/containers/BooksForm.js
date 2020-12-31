@@ -25,7 +25,12 @@ class BooksForm extends React.Component {
     handleSubmit = () => {
       const { state: { title, category } } = this;
       const { props: { createBook } } = this;
-      axios.post('http://localhost:3000/books', { title, category })
+
+      const httpProtocol = process.env.REACT_APP_REQUEST_OPTIONS_HTTP_PROTOCOL;
+      const host = process.env.REACT_APP_REQUEST_OPTIONS_HOST;
+      const port = process.env.REACT_APP_REQUEST_OPTIONS_PORT;
+
+      axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category })
         .then(response => {
           createBook(response.data);
         });

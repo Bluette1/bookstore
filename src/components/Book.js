@@ -7,7 +7,11 @@ import 'react-circular-progressbar/dist/styles.css';
 import { removeBook } from '../actions/index';
 
 const handleRemoveBook = (book, removeBook) => {
-  axios.delete(`http://localhost:3000/books/${book.id}`)
+  const httpProtocol = process.env.REACT_APP_REQUEST_OPTIONS_HTTP_PROTOCOL;
+  const host = process.env.REACT_APP_REQUEST_OPTIONS_HOST;
+  const port = process.env.REACT_APP_REQUEST_OPTIONS_PORT;
+
+  axios.delete(`${httpProtocol}://${host}:${port}/books/${book.id}`)
     .then(() => {
       removeBook(book);
     });
