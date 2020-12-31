@@ -10,7 +10,9 @@ import { httpProtocol, host, port } from '../envVariables';
 class Book extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { totalPages: 100, pagesRead: 0, showForm: false };
+    this.state = {
+      totalPages: 100, pagesRead: 0, showForm: false, currentChapter: 'Introduction',
+    };
     this.handleRemoveBook = this.handleRemoveBook.bind(this);
     this.handleChangePagesRead = this.handleChangePagesRead.bind(this);
     this.handleChangeTotalPages = this.handleChangeTotalPages.bind(this);
@@ -26,6 +28,10 @@ class Book extends React.Component {
     this.setState({ totalPages });
   };
 
+  handleChangeCurrentChapter = currentChapter => {
+    this.setState({ currentChapter });
+  };
+
   handleRemoveBook() {
     const { props: { book } } = this;
     axios.delete(`${httpProtocol}://${host}:${port}/books/${book.id}`)
@@ -36,20 +42,20 @@ class Book extends React.Component {
   }
 
   showUpdateForm() {
-    // document.getElementById('form').style.display = 'block';
     this.setState({ showForm: true });
   }
 
   hideUpdateForm() {
-    // document.getElementById('form').style.display = 'none';
     this.setState({ showForm: false });
   }
 
   render() {
     const { props: { book } } = this;
     const { title, category } = book;
-    const { pagesRead, totalPages, showForm } = this.state;
-    const value = Math.round(pagesRead / totalPages);
+    const {
+      pagesRead, totalPages, showForm, currentChapter,
+    } = this.state;
+    const value = (pagesRead / totalPages).toFixed(2);
     return (
       <div className="book-row">
         <div className="title-category">
@@ -74,19 +80,24 @@ class Book extends React.Component {
         </div>
         <div>
           <h4 className="current-chapter">CURRENT CHAPTER</h4>
-          <p className="current-lesson">Chapter 17</p>
+          <p className="current-lesson">{currentChapter}</p>
           <button type="button" className="update-progress-btn" onClick={() => this.showUpdateForm()}>
             <span className="update-progress">UPDATE PROGRESS</span>
           </button>
           {showForm ? (
-            <form id="form">
-              <i className="fa fa-times-circle-o" aria-hidden="true" onClick={() => this.hideUpdateForm()} />
-              <h2>Update Reading Progress</h2>
-              <input id="pages-read" name="pages-read" placeholder="pages read" type="number" />
-              <input id="total-pages" name="total-pages" placeholder="total-pages" type="number" />
-              <input id="current-chapter" name="current-chapter" placeholder="current chapter" type="text" />
-              <button type="submit" onClick={() => this.hideUpdateForm()}>OK</button>
-            </form>
+            <div className="form-div">
+              <div className="popup-form">
+                <form id="form">
+                  <i className="fa fa-times-circle-o fa-lg" aria-hidden="true" onClick={() => this.hideUpdateForm()} />
+                  <h2>Update Reading Progress</h2>
+                  <label htmlFor="book-title">{title}</label>
+                  <input id="pages-read" name="pages-read" placeholder="pages read" type="number" onChange={e => this.handleChangePagesRead(e.target.value)} />
+                  <input id="total-pages" name="total-pages" placeholder="total-pages" type="number" onChange={e => this.handleChangeTotalPages(e.target.value)} />
+                  <input id="current-chapter" name="current-chapter" placeholder="current chapter" type="text" />
+                  <button type="submit" onClick={() => this.hideUpdateForm()}>OK</button>
+                </form>
+              </div>
+            </div>
           ) : null }
 
         </div>

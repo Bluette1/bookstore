@@ -339,3 +339,64 @@ select.choose-category option {
   text-align: center;
   color: #fff;
 }
+
+.form-div {
+  width: 100%;
+  height: 100%;
+  opacity: 0.95;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: #313131;
+  overflow: auto;
+}
+
+.form-div label {
+  padding-right: 10px;
+}
+
+i.fa.fa-times-circle-o {
+  position: absolute;
+  margin-left: 223px;
+  cursor: pointer;
+  color: #c4c4c4;
+}
+
+.popup-form {
+  position: absolute;
+  left: 50%;
+  top: 17%;
+  margin-left: -202px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.form-div form {
+  max-width: 300px;
+  min-width: 250px;
+  height: 500px;
+  padding: 10px 50px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fff;
+}
+
+.form-div input {
+  width: 84.5%;
+  padding: 10px;
+  margin-top: 30px;
+  border: 1px solid #ccc;
+  padding-left: 25px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.form-div button {
+  border-radius: 3px;
+  background-color: #cd853f;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+}
