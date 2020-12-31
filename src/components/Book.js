@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { removeBook } from '../actions/index';
+import { httpProtocol, host, port } from '../envVariables';
 
-const Book = ({ book, handleRemoveBook }) => {
+const handleRemoveBook = (book, removeBook) => {
+  axios.delete(`${httpProtocol}://${host}:${port}/books/${book.id}`)
+    .then(() => {
+      removeBook(book);
+    });
+};
+
+const Book = ({ book, removeBook }) => {
   const { title, category } = book;
   const value = 0.66;
   return (
@@ -15,7 +24,7 @@ const Book = ({ book, handleRemoveBook }) => {
         <h4 className="title">{title}</h4>
         <ul className="comments-section">
           <li>Comments</li>
-          <li aria="hidden" role="presentation" onClick={() => handleRemoveBook(book)}>Remove</li>
+          <li aria-hidden="true" role="presentation" onClick={() => handleRemoveBook(book, removeBook)}>Remove</li>
           <li>Edit</li>
         </ul>
       </div>
@@ -40,8 +49,8 @@ const Book = ({ book, handleRemoveBook }) => {
 };
 
 Book.propTypes = {
-  book: PropTypes.objectOf(PropTypes.string).isRequired,
-  handleRemoveBook: PropTypes.func.isRequired,
+  book: PropTypes.objectOf(PropTypes.any).isRequired,
+  removeBook: PropTypes.func.isRequired,
 };
 
-export default connect(null, { handleRemoveBook: removeBook })(Book);
+export default connect(null, { removeBook })(Book);

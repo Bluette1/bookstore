@@ -1,8 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { BOOK_CATEGORIES } from '../constants';
 import { createBook } from '../actions/index';
+import { httpProtocol, host, port } from '../envVariables';
 
 class BooksForm extends React.Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class BooksForm extends React.Component {
     this.state = { title: '', category: '' };
     this.handleChangeCategory = this.handleChangeCategory.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
     handleChangeTitle = title => {
@@ -21,10 +24,13 @@ class BooksForm extends React.Component {
     };
 
     handleSubmit = () => {
-      // dispatches actions to add or remove a book
-      const { props: { createBook } } = this;
       const { state: { title, category } } = this;
-      createBook(title, category);
+      const { props: { createBook } } = this;
+      axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category })
+        .then(response => {
+          createBook(response.data);
+        });
+
       // resets the component's state
       this.setState({ title: '', category: '' });
       document.getElementById('book-select').selectedIndex = 0;
@@ -70,8 +76,4 @@ class BooksForm extends React.Component {
 BooksForm.propTypes = {
   createBook: PropTypes.func.isRequired,
 };
-
-export default connect(
-  null,
-  { createBook },
-)(BooksForm);
+export default connect(null, { createBook })(BooksForm);
