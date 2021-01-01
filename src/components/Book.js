@@ -4,19 +4,22 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { removeBook } from '../actions/index';
+import { removeBook, updateBook } from '../actions/index';
 import { httpProtocol, host, port } from '../envVariables';
 
 class Book extends React.Component {
   constructor(props) {
     super(props);
+    const { props: { book } } = this;
+    const { totalPages, pagesRead, currentChapter } = book;
     this.state = {
-      totalPages: 100, pagesRead: 0, showForm: false, currentChapter: 'Introduction',
+      totalPages, pagesRead, showForm: false, currentChapter,
     };
     this.handleRemoveBook = this.handleRemoveBook.bind(this);
     this.handleChangePagesRead = this.handleChangePagesRead.bind(this);
     this.handleChangeTotalPages = this.handleChangeTotalPages.bind(this);
     this.handleChangeCurrentChapter = this.handleChangeCurrentChapter.bind(this);
+    this.handleUpdateBook = this.handleUpdateBook.bind(this);
     this.hideUpdateForm = this.hideUpdateForm.bind(this);
     this.showUpdateForm = this.showUpdateForm.bind(this);
   }
@@ -42,12 +45,25 @@ class Book extends React.Component {
       });
   }
 
+  handleUpdateBook() {
+    const { props: { book } } = this;
+    const {
+      pagesRead, totalPages, currentChapter,
+    } = this.state;
+    axios.put(`${httpProtocol}://${host}:${port}/books/${book.id}`, { pagesRead, totalPages, currentChapter })
+      .then(response => {
+        const { props: { updateBook } } = this;
+        updateBook(response.data);
+      });
+  }
+
   showUpdateForm() {
     this.setState({ showForm: true });
   }
 
   hideUpdateForm() {
     this.setState({ showForm: false });
+    this.handleUpdateBook();
   }
 
   render() {
@@ -110,6 +126,7 @@ class Book extends React.Component {
 Book.propTypes = {
   book: PropTypes.objectOf(PropTypes.any).isRequired,
   removeBook: PropTypes.func.isRequired,
+  updateBook: PropTypes.func.isRequired,
 };
 
-export default connect(null, { removeBook })(Book);
+export default connect(null, { removeBook, updateBook })(Book);

@@ -12,7 +12,7 @@ class BooksList extends React.Component {
     axios.get(`${httpProtocol}://${host}:${port}/books`)
       .then(response => {
         const { props: { registerBooks } } = this;
-        registerBooks(response.data);
+        registerBooks(response.data.reverse());
       });
   }
 

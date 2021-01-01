@@ -1,5 +1,5 @@
 import {
-  REMOVE_BOOK, CREATE_BOOK, CHANGE_FILTER, REGISTER_BOOKS,
+  REMOVE_BOOK, CREATE_BOOK, UPDATE_BOOK, CHANGE_FILTER, REGISTER_BOOKS,
 } from './actionTypes';
 
 export const createBook = book => ({
@@ -9,6 +9,11 @@ export const createBook = book => ({
 
 export const removeBook = book => ({
   type: REMOVE_BOOK,
+  book,
+});
+
+export const updateBook = book => ({
+  type: UPDATE_BOOK,
   book,
 });
 
