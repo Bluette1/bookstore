@@ -6,7 +6,10 @@ const initialState = [];
 
 const findAndDeleteBook = (books, id) => books.filter(book => book.id !== id);
 
-const findAndUpdateBook = (books, book) => [...findAndDeleteBook(books, book.id), book];
+const findAndUpdateBook = (books, book) => {
+  const index = books.findIndex(bk => book.id === bk.id);
+  return [...books.slice(0, index), book, ...books.slice(index + 1)];
+};
 
 export default function books(state = initialState, action) {
   switch (action.type) {
