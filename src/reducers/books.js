@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   REMOVE_BOOK, CREATE_BOOK, REGISTER_BOOKS, UPDATE_BOOK,
 } from '../actions/actionTypes';
@@ -15,22 +16,22 @@ export default function books(state = initialState, action) {
   switch (action.type) {
     case REGISTER_BOOKS: {
       return [
-        ...state, ...action.books,
+        ..._.cloneDeep(state), ...action.books,
       ];
     }
     case CREATE_BOOK: {
       return [
-        ...state, action.book,
+        ..._.cloneDeep(state), action.book,
       ];
     }
     case REMOVE_BOOK: {
       const { id } = action.book;
-      return findAndDeleteBook([...state], id);
+      return findAndDeleteBook([..._.cloneDeep(state)], id);
     }
 
     case UPDATE_BOOK: {
       const { book } = action;
-      return findAndUpdateBook([...state], book);
+      return findAndUpdateBook([..._.cloneDeep(state)], book);
     }
     default:
       return state;
