@@ -97,6 +97,7 @@ class Book extends React.Component {
       showProgressForm, showUpdateForm, currentChapter, title, category, author,
     } = this.state;
     const value = (pagesRead / totalPages).toFixed(2);
+
     return (
       <div className="book-row">
         <div className="title-category">
@@ -115,7 +116,7 @@ class Book extends React.Component {
           </div>
           <div>
             <h4 className="percent">
-              {`${value * 100}%`}
+              {`${Math.round(value * 100)}%`}
             </h4>
             <p className="completed">Completed</p>
           </div>
