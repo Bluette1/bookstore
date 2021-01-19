@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Book from '../components/Book';
-import getBooksByFilter from '../selectors';
+import Bk from '../components/Bk';
+import { getBooksByFilter } from '../selectors';
 import { registerBooks } from '../actions/index';
 import { httpProtocol, host, port } from '../envVariables';
 
@@ -17,11 +17,11 @@ class BooksList extends React.Component {
   }
 
   render() {
-    const { props: { books } } = this;
+    const { props: { books, showReading } } = this;
     return (
       <div>
         {books && books.length ? (
-          books.map(book => <Book key={`book-${book.id}`} book={book} />)
+          books.map(book => <Bk key={`book-${book.id}`} book={book} showReading={showReading} />)
         ) : null}
       </div>
     );
@@ -37,6 +37,7 @@ const mapStateToProps = state => {
 BooksList.propTypes = {
   books: PropTypes.arrayOf(PropTypes.object).isRequired,
   registerBooks: PropTypes.func.isRequired,
+  showReading: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, { registerBooks })(BooksList);

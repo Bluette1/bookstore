@@ -9,24 +9,30 @@ import { httpProtocol, host, port } from '../envVariables';
 class BooksForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { title: '', category: '' };
-    this.handleChangeCategory = this.handleChangeCategory.bind(this);
-    this.handleChangeTitle = this.handleChangeTitle.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { title: '', category: '', totalPages: 100 };
+    // this.handleChangeCategory = this.handleChangeCategory.bind(this);
+    // this.handleChangeTitle = this.handleChangeTitle.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-    handleChangeTitle = title => {
-      this.setState({ title });
-    };
+  // handleChangeTitle = title => {
+  //   this.setState({ title });
+  // };
 
-    handleChangeCategory = category => {
-      this.setState({ category });
-    };
+  // handleChangeCategory = category => {
+  //   this.setState({ category });
+  // };
+
+    handleChange = ({ target: { name, value } }) => {
+      this.setState({
+        [name]: value,
+      });
+    }
 
     handleSubmit = () => {
-      const { state: { title, category } } = this;
+      const { state: { title, category, totalPages } } = this;
       const { props: { createBook } } = this;
-      axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category })
+      axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category, totalPages })
         .then(response => {
           createBook(response.data);
         });
@@ -43,7 +49,14 @@ class BooksForm extends React.Component {
           <h3 className="form-title">ADD NEW BOOK</h3>
           <input
             className="input-title"
-            onChange={e => this.handleChangeTitle(e.target.value)}
+            onChange={this.handleChange}
+            value={title}
+            placeholder="Book title"
+          />
+
+          <input
+            className="input-title"
+            onChange={this.handleChange}
             value={title}
             placeholder="Book title"
           />
@@ -51,7 +64,7 @@ class BooksForm extends React.Component {
             name="book-categories"
             className="choose-category"
             id="book-select"
-            onChange={e => this.handleChangeCategory(e.target.value)}
+            onChange={this.handleChange}
           >
             <option>Category</option>
             {BOOK_CATEGORIES.map(option => (
