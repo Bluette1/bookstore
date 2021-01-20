@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Book from '../components/Book';
+import BookRead from '../components/BookRead';
 import { getReadingsByFilter } from '../selectors';
 import { registerReading } from '../actions/index';
 import { httpProtocol, host, port } from '../envVariables';
@@ -21,7 +21,7 @@ class ReadingList extends React.Component {
     return (
       <div>
         {reading && reading.length ? (
-          reading.map(book => <Book key={`book-${book.id}`} reading={book} />)
+          reading.map(book => <BookRead key={`book-${book.id}`} reading={book} />)
         ) : null}
       </div>
     );

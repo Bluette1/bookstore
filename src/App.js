@@ -9,7 +9,7 @@ import Login from './components/Login';
 import logo from './logo.svg';
 import CategoryFilter from './components/CategoryFilter';
 
-const App = ({ authentication }) => {
+const App = ({ user }) => {
   const [renderReading, setRenderReading] = useState(false);
   const showReading = () => {
     setRenderReading(true);
@@ -36,18 +36,18 @@ const App = ({ authentication }) => {
         </ul>
         <i className="fas fa-user-circle fa-3x" aria-hidden="true" />
       </div>
-      {authentication
+      {user
         ? list
         : <Login /> }
     </div>
   );
 };
 App.propTypes = {
-  authentication: PropTypes.objectOf(PropTypes.any),
+  user: PropTypes.objectOf(PropTypes.any),
 };
 
 App.defaultProps = {
-  authentication: {},
+  user: {},
 };
 
-export default connect(state => ({ authentication: state.authentication }))(App);
+export default connect(state => ({ user: state.user }))(App);

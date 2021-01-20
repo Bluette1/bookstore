@@ -20,8 +20,8 @@ class BooksForm extends React.Component {
 
     handleSubmit = () => {
       const { state: { title, category, totalPages } } = this;
-      const { props: { createBook, authentication } } = this;
-      axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category, totalPages }, { headers: { Authorization: `Bearer ${authentication.authentication_token}` } })
+      const { props: { createBook, user } } = this;
+      axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category, totalPages }, { headers: { Authorization: `Bearer ${user.authentication_token}` } })
         .then(response => {
           createBook(response.data);
         });
@@ -80,8 +80,8 @@ class BooksForm extends React.Component {
 
 BooksForm.propTypes = {
   createBook: PropTypes.func.isRequired,
-  authentication: PropTypes.objectOf(PropTypes.any).isRequired,
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 export default connect(
-  state => ({ authentication: state.authentication }), { createBook },
+  state => ({ user: state.user }), { createBook },
 )(BooksForm);

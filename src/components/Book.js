@@ -2,18 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { removeReading, updateReading } from '../actions/index';
+import { removeBook, updateBook, addToReading } from '../actions/index';
 import { httpProtocol, host, port } from '../envVariables';
 
 class Book extends React.Component {
   constructor(props) {
     super(props);
-    const { props: { reading } } = this;
-    const { book, pagesRead, currentChapter } = reading;
+    const { props: { book } } = this;
     this.state = {
-      showProgressForm: false, ...book, pagesRead, currentChapter,
+      showUpdateForm: false, ...book,
     };
   }
 
@@ -23,46 +21,55 @@ class Book extends React.Component {
     });
   }
 
-  handleRemoveReading() {
-    const { props: { reading } } = this;
-    axios.delete(`${httpProtocol}://${host}:${port}/readings/${reading.id}}`)
-      .then(() => {
-        const { props: { reading, removeReading } } = this;
-        removeReading(reading.book);
-      });
-  }
-
-  handleUpdateReading() {
-    const { props: { reading } } = this;
+  addToReadingList = () => {
+    const { props: { book, user } } = this;
     const {
       pagesRead, currentChapter,
     } = this.state;
-    axios.put(`${httpProtocol}://${host}:${port}/readings/${reading.id}`, {
-      pagesRead, currentChapter,
-    })
+    axios.post(`${httpProtocol}://${host}:${port}/books/${book.id}/readings`,
+      { pagesRead, currentChapter },
+      { headers: { Authorization: `Bearer ${user.authentication_token}` } })
       .then(response => {
-        const { props: { updateReading } } = this;
-        updateReading(response.data);
+        const { props: { addToReading, showReading } } = this;
+        addToReading(response.data);
+        showReading();
       });
   }
 
-  showUpdateProgressForm() {
-    this.setState({ showProgressForm: true });
+  handleRemoveBook() {
+    const { props: { book, user } } = this;
+    axios.delete(`${httpProtocol}://${host}:${port}/books/${book.id}`,
+      { headers: { Authorization: `Bearer ${user.authentication_token}` } })
+      .then(() => {
+        const { props: { book, removeBook } } = this;
+        removeBook(book);
+      });
   }
 
-  hideUpdateProgressForm() {
-    this.setState({ showProgressForm: false });
-    this.handleUpdateReading();
+  handleUpdateBook() {
+    const { props: { book, user } } = this;
+    axios.put(`${httpProtocol}://${host}:${port}/books/${book.id}`,
+      { headers: { Authorization: `Bearer ${user.authentication_token}` } })
+      .then(() => {
+        const { props: { book, updateBook } } = this;
+        updateBook(book);
+      });
+  }
+
+  showUpdateForm() {
+    this.setState({ showUpdateForm: true });
+  }
+
+  hideUpdateForm() {
+    this.setState({ showUpdateForm: false });
+    this.handleUpdateBook();
   }
 
   render() {
     const {
-      pagesRead,
       totalPages,
-      showProgressForm, currentChapter,
-      title, category, author,
+      showUpdateForm, title, category, author,
     } = this.state;
-    const value = (pagesRead / totalPages).toFixed(2);
 
     return (
       <div className="book-row">
@@ -72,49 +79,35 @@ class Book extends React.Component {
           <p className="author">{author}</p>
           <ul className="comments-section">
             <li>Comments</li>
-            <li aria-hidden="true" role="presentation" onClick={() => this.handleRemoveReading()}>Remove</li>
+            <li aria-hidden="true" role="presentation" onClick={() => this.handleRemoveBook()}>Remove</li>
+            <li role="presentation" onClick={() => this.showUpdateForm()}>Edit</li>
           </ul>
         </div>
-        <div className="progress">
-          <div className="progressBar">
-            <CircularProgressbar className="progressBar" value={value} maxValue={1} />
-          </div>
-          <div>
-            <h4 className="percent">
-              {`${Math.round(value * 100)}%`}
-            </h4>
-            <p className="completed">Completed</p>
-          </div>
-        </div>
         <div>
-          <h4 className="current-chapter">CURRENT CHAPTER</h4>
-          <p className="current-lesson">{currentChapter}</p>
-          <button type="button" className="update-progress-btn" onClick={() => this.showUpdateProgressForm()}>
-            <span className="update-progress">UPDATE PROGRESS</span>
+          <h4 className="current-chapter">TOTAL PAGES</h4>
+          <p className="current-lesson">{totalPages}</p>
+          <button type="button" className="update-progress-btn" onClick={this.addToReadingList}>
+            <span className="update-progress">ADD TO READING LIST</span>
           </button>
-          {showProgressForm ? (
+          {showUpdateForm ? (
             <div className="form-div">
               <div className="popup-form">
                 <form id="form">
-                  <i className="fa fa-times-circle-o fa-lg" aria-hidden="true" onClick={() => this.hideUpdateProgressForm()} />
-                  <h2>Update Reading Progress</h2>
-                  <p htmlFor="book-title" className="book-title">
-                    {title}
-                    <br />
-                  </p>
-                  <label htmlFor="pages-read">
-                    Pages read:
-                    <input id="pages-read" name="pages-read" placeholder={pagesRead} type="number" onChange={e => this.handleChangePagesRead(e.target.value)} />
+                  <i className="fa fa-times-circle-o fa-lg" aria-hidden="true" onClick={() => this.hideUpdateForm()} />
+                  <h2>Update book</h2>
+                  <label htmlFor="book-title">
+                    Title:
+                    <input id="title" name="title" placeholder={title} type="text" onChange={e => this.handleChangeTitle(e.target.value)} />
                   </label>
-                  <label htmlFor="total-pages">
-                    Total pages:
-                    <input id="total-pages" name="total-pages" placeholder={totalPages} type="number" onChange={e => this.handleChangeTotalPages(e.target.value)} />
+                  <label htmlFor="book-category">
+                    Category:
+                    <input id="category" name="category" placeholder={category} type="text" onChange={e => this.handleChangeCategory(e.target.value)} />
                   </label>
-                  <label htmlFor="current-chapter">
-                    Current chapter:
-                    <input id="current-chapter" name="current-chapter" placeholder={currentChapter} type="text" onChange={e => this.handleChangeCurrentChapter(e.target.value)} />
+                  <label htmlFor="book-author">
+                    Author:
+                    <input id="book-author" name="author" placeholder={author} type="text" onChange={e => this.handleChangeAuthor(e.target.value)} />
                   </label>
-                  <button type="submit" onClick={() => this.hideUpdateProgressForm()}>OK</button>
+                  <button type="submit" onClick={() => this.hideUpdateForm()}>OK</button>
                 </form>
               </div>
             </div>
@@ -126,9 +119,15 @@ class Book extends React.Component {
 }
 
 Book.propTypes = {
-  reading: PropTypes.objectOf(PropTypes.any).isRequired,
-  removeReading: PropTypes.func.isRequired,
-  updateReading: PropTypes.func.isRequired,
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
+  book: PropTypes.objectOf(PropTypes.any).isRequired,
+  removeBook: PropTypes.func.isRequired,
+  updateBook: PropTypes.func.isRequired,
+  showReading: PropTypes.func.isRequired,
+  addToReading: PropTypes.func.isRequired,
 };
 
-export default connect(null, { removeReading, updateReading })(Book);
+export default connect(
+  state => ({ user: state.user }),
+  { removeBook, updateBook, addToReading },
+)(Book);

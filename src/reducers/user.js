@@ -2,7 +2,7 @@ import { LOGIN, LOGOUT } from '../actions/actionTypes';
 
 const initialState = null;
 
-const authentication = (state = initialState, action) => {
+const user = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN: {
       return action.user;
@@ -17,4 +17,4 @@ const authentication = (state = initialState, action) => {
   }
 };
 
-export default authentication;
+export default user;

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import books from './books';
 import filter from './filter';
-import authentication from './authentication';
+import user from './user';
 import reading from './reading';
 
 export default combineReducers({
-  books, filter, authentication, reading,
+  books, filter, user, reading,
 });
