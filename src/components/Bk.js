@@ -21,6 +21,21 @@ class Bk extends React.Component {
     });
   }
 
+  addToReadingList = () => {
+    const { props: { book, authentication } } = this;
+    const {
+      pagesRead, currentChapter,
+    } = this.state;
+    axios.post(`${httpProtocol}://${host}:${port}/books/${book.id}/readings`,
+      { pagesRead, currentChapter },
+      { headers: { Authorization: `Bearer ${authentication.authentication_token}` } })
+      .then(response => {
+        const { props: { addToReading, showReading } } = this;
+        addToReading(response.data);
+        showReading();
+      });
+  }
+
   handleRemoveBook() {
     const { props: { book } } = this;
     axios.delete(`${httpProtocol}://${host}:${port}/books/${book.id}`)
@@ -36,21 +51,6 @@ class Bk extends React.Component {
       .then(() => {
         const { props: { book, updateBook } } = this;
         updateBook(book);
-      });
-  }
-
-  addToReadingList() {
-    const { props: { book } } = this;
-    const {
-      pagesRead, currentChapter,
-    } = this.state;
-    axios.put(`${httpProtocol}://${host}:${port}/books/${book.id}/readings}`, {
-      pagesRead, currentChapter,
-    })
-      .then(response => {
-        const { props: { addToReading, showReading } } = this;
-        addToReading(response.data);
-        showReading();
       });
   }
 
@@ -84,7 +84,7 @@ class Bk extends React.Component {
         <div>
           <h4 className="current-chapter">TOTAL PAGES</h4>
           <p className="current-lesson">{totalPages}</p>
-          <button type="button" className="update-progress-btn" onClick={() => this.addToReadingList}>
+          <button type="button" className="update-progress-btn" onClick={this.addToReadingList}>
             <span className="update-progress">ADD TO READING LIST</span>
           </button>
           {showUpdateForm ? (
@@ -117,6 +117,7 @@ class Bk extends React.Component {
 }
 
 Bk.propTypes = {
+  authentication: PropTypes.objectOf(PropTypes.any).isRequired,
   book: PropTypes.objectOf(PropTypes.any).isRequired,
   removeBook: PropTypes.func.isRequired,
   updateBook: PropTypes.func.isRequired,
@@ -124,4 +125,7 @@ Bk.propTypes = {
   addToReading: PropTypes.func.isRequired,
 };
 
-export default connect(null, { removeBook, updateBook, addToReading })(Bk);
+export default connect(
+  state => ({ authentication: state.authentication }),
+  { removeBook, updateBook, addToReading },
+)(Bk);

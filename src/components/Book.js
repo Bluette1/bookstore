@@ -11,8 +11,9 @@ class Book extends React.Component {
   constructor(props) {
     super(props);
     const { props: { reading } } = this;
+    const { book, pagesRead, currentChapter } = reading;
     this.state = {
-      showProgressForm: false, ...reading,
+      showProgressForm: false, ...book, pagesRead, currentChapter,
     };
   }
 
@@ -58,9 +59,9 @@ class Book extends React.Component {
     const {
       pagesRead,
       totalPages,
-      showProgressForm, currentChapter, book,
+      showProgressForm, currentChapter,
+      title, category, author,
     } = this.state;
-    const { title, category, author } = book;
     const value = (pagesRead / totalPages).toFixed(2);
 
     return (
