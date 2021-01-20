@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'react-circular-progressbar/dist/styles.css';
-import { removeBook, updateBook } from '../actions/index';
+import { removeBook, updateBook, addToReading } from '../actions/index';
 import { httpProtocol, host, port } from '../envVariables';
 
 class Bk extends React.Component {
@@ -30,6 +30,15 @@ class Bk extends React.Component {
       });
   }
 
+  handleUpdateBook() {
+    const { props: { book } } = this;
+    axios.put(`${httpProtocol}://${host}:${port}/books/${book.id}`)
+      .then(() => {
+        const { props: { book, updateBook } } = this;
+        updateBook(book);
+      });
+  }
+
   addToReadingList() {
     const { props: { book } } = this;
     const {
@@ -39,8 +48,8 @@ class Bk extends React.Component {
       pagesRead, currentChapter,
     })
       .then(response => {
-        const { props: { updateReading, showReading } } = this;
-        updateReading(response.data);
+        const { props: { addToReading, showReading } } = this;
+        addToReading(response.data);
         showReading();
       });
   }
@@ -110,8 +119,9 @@ class Bk extends React.Component {
 Bk.propTypes = {
   book: PropTypes.objectOf(PropTypes.any).isRequired,
   removeBook: PropTypes.func.isRequired,
-  updateReading: PropTypes.func.isRequired,
+  updateBook: PropTypes.func.isRequired,
   showReading: PropTypes.func.isRequired,
+  addToReading: PropTypes.func.isRequired,
 };
 
-export default connect(null, { removeBook, updateBook })(Bk);
+export default connect(null, { removeBook, updateBook, addToReading })(Bk);

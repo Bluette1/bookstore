@@ -3,11 +3,16 @@ import {
   CREATE_BOOK,
   UPDATE_BOOK,
   CHANGE_FILTER, REGISTER_BOOKS, REGISTER_READING,
-  LOGIN, LOGOUT, UPDATE_READING, REMOVE_FROM_READING,
+  LOGIN, LOGOUT, UPDATE_READING, REMOVE_FROM_READING, ADD_TO_READING,
 } from './actionTypes';
 
 export const createBook = book => ({
   type: CREATE_BOOK,
+  book,
+});
+
+export const addToReading = book => ({
+  type: ADD_TO_READING,
   book,
 });
 
@@ -41,14 +46,14 @@ export const registerReading = reading => ({
   reading,
 });
 
-export const login = loginValue => ({
+export const login = user => ({
   type: LOGIN,
-  loginValue,
+  user,
 });
 
-export const logout = logoutValue => ({
+export const logout = () => ({
   type: LOGOUT,
-  logoutValue,
+  user: {},
 });
 
 export const changeFilter = filter => ({ type: CHANGE_FILTER, filter });

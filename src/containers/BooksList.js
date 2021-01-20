@@ -9,9 +9,9 @@ import { httpProtocol, host, port } from '../envVariables';
 
 class BooksList extends React.Component {
   componentDidMount() {
-    axios.get(`${httpProtocol}://${host}:${port}/books`)
+    const { props: { registerBooks, authentication } } = this;
+    axios.get(`${httpProtocol}://${host}:${port}/books`, { headers: { Authorization: `Bearer ${authentication.authentication_token}` } })
       .then(response => {
-        const { props: { registerBooks } } = this;
         registerBooks(response.data.reverse());
       });
   }
@@ -29,15 +29,16 @@ class BooksList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { filter } = state;
+  const { filter, authentication } = state;
   const books = getBooksByFilter(state, filter);
-  return { books };
+  return { books, authentication };
 };
 
 BooksList.propTypes = {
   books: PropTypes.arrayOf(PropTypes.object).isRequired,
   registerBooks: PropTypes.func.isRequired,
   showReading: PropTypes.func.isRequired,
+  authentication: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, { registerBooks })(BooksList);

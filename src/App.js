@@ -43,7 +43,11 @@ const App = ({ authentication }) => {
   );
 };
 App.propTypes = {
-  authentication: PropTypes.bool.isRequired,
+  authentication: PropTypes.objectOf(PropTypes.any),
+};
+
+App.defaultProps = {
+  authentication: {},
 };
 
 export default connect(state => ({ authentication: state.authentication }))(App);

@@ -32,8 +32,8 @@ class Login extends React.Component {
           {
             email, password,
           },
-      }).then(() => {
-        login(true);
+      }).then(response => {
+        login(response.data.data.user);
       }).catch(error => console.log(error));
     };
 
@@ -55,8 +55,8 @@ class Login extends React.Component {
         user: {
           name, username, email, password, password_confirmation: passwordConfirmation,
         },
-      }).then(() => {
-        login(true);
+      }).then(response => {
+        login(response.data.user);
       });
     };
 

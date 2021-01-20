@@ -10,18 +10,7 @@ class BooksForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { title: '', category: '', totalPages: 100 };
-    // this.handleChangeCategory = this.handleChangeCategory.bind(this);
-    // this.handleChangeTitle = this.handleChangeTitle.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  // handleChangeTitle = title => {
-  //   this.setState({ title });
-  // };
-
-  // handleChangeCategory = category => {
-  //   this.setState({ category });
-  // };
 
     handleChange = ({ target: { name, value } }) => {
       this.setState({
@@ -31,8 +20,8 @@ class BooksForm extends React.Component {
 
     handleSubmit = () => {
       const { state: { title, category, totalPages } } = this;
-      const { props: { createBook } } = this;
-      axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category, totalPages })
+      const { props: { createBook, authentication } } = this;
+      axios.post(`${httpProtocol}://${host}:${port}/books`, { title, category, totalPages }, { headers: { Authorization: `Bearer ${authentication.authentication_token}` } })
         .then(response => {
           createBook(response.data);
         });
@@ -43,26 +32,29 @@ class BooksForm extends React.Component {
     };
 
     render() {
-      const { state: { title } } = this;
+      const { state: { title, totalPages, category } } = this;
       return (
-        <div className="book-form">
+        <form className="book-form">
           <h3 className="form-title">ADD NEW BOOK</h3>
           <input
             className="input-title"
             onChange={this.handleChange}
+            name="title"
             value={title}
             placeholder="Book title"
           />
 
           <input
             className="input-title"
+            name="totalPages"
             onChange={this.handleChange}
-            value={title}
-            placeholder="Book title"
+            value={totalPages}
+            placeholder="Total Pages"
           />
           <select
-            name="book-categories"
             className="choose-category"
+            name="category"
+            value={category}
             id="book-select"
             onChange={this.handleChange}
           >
@@ -81,12 +73,15 @@ class BooksForm extends React.Component {
           >
             <span className="add-book">ADD BOOK</span>
           </button>
-        </div>
+        </form>
       );
     }
 }
 
 BooksForm.propTypes = {
   createBook: PropTypes.func.isRequired,
+  authentication: PropTypes.objectOf(PropTypes.any).isRequired,
 };
-export default connect(null, { createBook })(BooksForm);
+export default connect(
+  state => ({ authentication: state.authentication }), { createBook },
+)(BooksForm);
