@@ -1,11 +1,28 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import BooksForm from './containers/BooksForm';
 import BooksList from './containers/BooksList';
+import ReadingList from './containers/ReadingList';
+import Login from './components/Login';
 import logo from './logo.svg';
 import CategoryFilter from './components/CategoryFilter';
 
-export default function App() {
+const App = ({ user }) => {
+  const [renderReading, setRenderReading] = useState(false);
+  const showReading = () => {
+    setRenderReading(true);
+  };
+  const handleSetReading = () => {
+    showReading();
+  };
+  const list = renderReading ? <ReadingList /> : (
+    <div>
+      <BooksList showReading={showReading} />
+      <BooksForm />
+    </div>
+  );
   return (
     <div className="content">
       <div className="header">
@@ -14,15 +31,23 @@ export default function App() {
             <img src={logo} className="app-logo" alt="logo" />
             Bookstoria
           </li>
-          <li>BOOKS</li>
+          <li><button type="submit" onClick={handleSetReading}>CURRENTLY READING</button></li>
           <CategoryFilter />
         </ul>
         <i className="fas fa-user-circle fa-3x" aria-hidden="true" />
       </div>
-      <div>
-        <BooksList />
-        <BooksForm />
-      </div>
+      {user
+        ? list
+        : <Login /> }
     </div>
   );
-}
+};
+App.propTypes = {
+  user: PropTypes.objectOf(PropTypes.any),
+};
+
+App.defaultProps = {
+  user: {},
+};
+
+export default connect(state => ({ user: state.user }))(App);

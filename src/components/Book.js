@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { removeBook, updateBook } from '../actions/index';
+import { removeBook, updateBook, addToReading } from '../actions/index';
 import { httpProtocol, host, port } from '../envVariables';
 
 class Book extends React.Component {
@@ -12,46 +11,38 @@ class Book extends React.Component {
     super(props);
     const { props: { book } } = this;
     this.state = {
-      showProgressForm: false, showUpdateForm: false, ...book,
+      showUpdateForm: false, ...book, read: false,
     };
-    this.handleRemoveBook = this.handleRemoveBook.bind(this);
-    this.handleChangePagesRead = this.handleChangePagesRead.bind(this);
-    this.handleChangeTotalPages = this.handleChangeTotalPages.bind(this);
-    this.handleChangeCurrentChapter = this.handleChangeCurrentChapter.bind(this);
-    this.handleUpdateBook = this.handleUpdateBook.bind(this);
-    this.hideUpdateForm = this.hideUpdateForm.bind(this);
-    this.hideUpdateProgressForm = this.hideUpdateProgressForm.bind(this);
-    this.showUpdateForm = this.showUpdateForm.bind(this);
-    this.showUpdateProgressForm = this.showUpdateProgressForm.bind(this);
   }
 
-  handleChangePagesRead = pagesRead => {
-    this.setState({ pagesRead });
-  };
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value,
+    });
+  }
 
-  handleChangeTotalPages = totalPages => {
-    this.setState({ totalPages });
-  };
-
-  handleChangeCurrentChapter = currentChapter => {
-    this.setState({ currentChapter });
-  };
-
-  handleChangeTitle = title => {
-    this.setState({ title });
-  };
-
-  handleChangeCategory = category => {
-    this.setState({ category });
-  };
-
-  handleChangeAuthor = author => {
-    this.setState({ author });
-  };
+  addToReadingList = () => {
+    const { props: { book, user } } = this;
+    const {
+      pagesRead, currentChapter,
+    } = this.state;
+    axios.post(`${httpProtocol}://${host}:${port}/books/${book.id}/readings`,
+      { pagesRead, currentChapter },
+      { headers: { Authorization: `Bearer ${user.authentication_token}` } })
+      .then(response => {
+        const { props: { addToReading, showReading } } = this;
+        addToReading(response.data);
+        showReading();
+        this.setState({
+          read: true,
+        });
+      });
+  }
 
   handleRemoveBook() {
-    const { props: { book } } = this;
-    axios.delete(`${httpProtocol}://${host}:${port}/books/${book.id}`)
+    const { props: { book, user } } = this;
+    axios.delete(`${httpProtocol}://${host}:${port}/books/${book.id}`,
+      { headers: { Authorization: `Bearer ${user.authentication_token}` } })
       .then(() => {
         const { props: { book, removeBook } } = this;
         removeBook(book);
@@ -59,26 +50,13 @@ class Book extends React.Component {
   }
 
   handleUpdateBook() {
-    const { props: { book } } = this;
-    const {
-      pagesRead, totalPages, currentChapter, title, category, author,
-    } = this.state;
-    axios.put(`${httpProtocol}://${host}:${port}/books/${book.id}`, {
-      pagesRead, totalPages, currentChapter, title, category, author,
-    })
-      .then(response => {
-        const { props: { updateBook } } = this;
-        updateBook(response.data);
+    const { props: { book, user } } = this;
+    axios.put(`${httpProtocol}://${host}:${port}/books/${book.id}`,
+      { headers: { Authorization: `Bearer ${user.authentication_token}` } })
+      .then(() => {
+        const { props: { book, updateBook } } = this;
+        updateBook(book);
       });
-  }
-
-  showUpdateProgressForm() {
-    this.setState({ showProgressForm: true });
-  }
-
-  hideUpdateProgressForm() {
-    this.setState({ showProgressForm: false });
-    this.handleUpdateBook();
   }
 
   showUpdateForm() {
@@ -92,11 +70,10 @@ class Book extends React.Component {
 
   render() {
     const {
-      pagesRead,
       totalPages,
-      showProgressForm, showUpdateForm, currentChapter, title, category, author,
+      showUpdateForm, title, category, author, read,
+      showReading,
     } = this.state;
-    const value = (pagesRead / totalPages).toFixed(2);
 
     return (
       <div className="book-row">
@@ -110,50 +87,14 @@ class Book extends React.Component {
             <li role="presentation" onClick={() => this.showUpdateForm()}>Edit</li>
           </ul>
         </div>
-        <div className="progress">
-          <div className="progressBar">
-            <CircularProgressbar className="progressBar" value={value} maxValue={1} />
-          </div>
-          <div>
-            <h4 className="percent">
-              {`${Math.round(value * 100)}%`}
-            </h4>
-            <p className="completed">Completed</p>
-          </div>
-        </div>
         <div>
-          <h4 className="current-chapter">CURRENT CHAPTER</h4>
-          <p className="current-lesson">{currentChapter}</p>
-          <button type="button" className="update-progress-btn" onClick={() => this.showUpdateProgressForm()}>
-            <span className="update-progress">UPDATE PROGRESS</span>
+          <h4 className="current-chapter">TOTAL PAGES</h4>
+          <p className="current-lesson">{totalPages}</p>
+          <button type="button" className="update-progress-btn" onClick={read ? showReading : this.addToReadingList}>
+            <span className="update-progress">
+              {read ? 'REMOVE FROM READING LIST' : 'ADD TO READING LIST'}
+            </span>
           </button>
-          {showProgressForm ? (
-            <div className="form-div">
-              <div className="popup-form">
-                <form id="form">
-                  <i className="fa fa-times-circle-o fa-lg" aria-hidden="true" onClick={() => this.hideUpdateProgressForm()} />
-                  <h2>Update Reading Progress</h2>
-                  <p htmlFor="book-title" className="book-title">
-                    {title}
-                    <br />
-                  </p>
-                  <label htmlFor="pages-read">
-                    Pages read:
-                    <input id="pages-read" name="pages-read" placeholder={pagesRead} type="number" onChange={e => this.handleChangePagesRead(e.target.value)} />
-                  </label>
-                  <label htmlFor="total-pages">
-                    Total pages:
-                    <input id="total-pages" name="total-pages" placeholder={totalPages} type="number" onChange={e => this.handleChangeTotalPages(e.target.value)} />
-                  </label>
-                  <label htmlFor="current-chapter">
-                    Current chapter:
-                    <input id="current-chapter" name="current-chapter" placeholder={currentChapter} type="text" onChange={e => this.handleChangeCurrentChapter(e.target.value)} />
-                  </label>
-                  <button type="submit" onClick={() => this.hideUpdateProgressForm()}>OK</button>
-                </form>
-              </div>
-            </div>
-          ) : null }
           {showUpdateForm ? (
             <div className="form-div">
               <div className="popup-form">
@@ -184,9 +125,15 @@ class Book extends React.Component {
 }
 
 Book.propTypes = {
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
   book: PropTypes.objectOf(PropTypes.any).isRequired,
   removeBook: PropTypes.func.isRequired,
   updateBook: PropTypes.func.isRequired,
+  showReading: PropTypes.func.isRequired,
+  addToReading: PropTypes.func.isRequired,
 };
 
-export default connect(null, { removeBook, updateBook })(Book);
+export default connect(
+  state => ({ user: state.user }),
+  { removeBook, updateBook, addToReading },
+)(Book);
