@@ -9,8 +9,8 @@ import { httpProtocol, host, port } from '../envVariables';
 
 class ReadingList extends React.Component {
   componentDidMount() {
-    const { props: { registerReading, authentication } } = this;
-    axios.get(`${httpProtocol}://${host}:${port}/readings`, { headers: { Authorization: `Bearer ${authentication.authentication_token}` } })
+    const { props: { registerReading, user } } = this;
+    axios.get(`${httpProtocol}://${host}:${port}/readings`, { headers: { Authorization: `Bearer ${user.authentication_token}` } })
       .then(response => {
         registerReading(response.data.reverse());
       });
@@ -29,15 +29,15 @@ class ReadingList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { filter, authentication } = state;
+  const { filter, user } = state;
   const reading = getReadingsByFilter(state, filter);
-  return { reading, authentication };
+  return { reading, user };
 };
 
 ReadingList.propTypes = {
   reading: PropTypes.arrayOf(PropTypes.object).isRequired,
   registerReading: PropTypes.func.isRequired,
-  authentication: PropTypes.objectOf(PropTypes.any).isRequired,
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, { registerReading })(ReadingList);

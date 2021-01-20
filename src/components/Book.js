@@ -11,7 +11,7 @@ class Book extends React.Component {
     super(props);
     const { props: { book } } = this;
     this.state = {
-      showUpdateForm: false, ...book,
+      showUpdateForm: false, ...book, read: false,
     };
   }
 
@@ -33,6 +33,9 @@ class Book extends React.Component {
         const { props: { addToReading, showReading } } = this;
         addToReading(response.data);
         showReading();
+        this.setState({
+          read: true,
+        });
       });
   }
 
@@ -68,7 +71,8 @@ class Book extends React.Component {
   render() {
     const {
       totalPages,
-      showUpdateForm, title, category, author,
+      showUpdateForm, title, category, author, read,
+      showReading,
     } = this.state;
 
     return (
@@ -86,8 +90,10 @@ class Book extends React.Component {
         <div>
           <h4 className="current-chapter">TOTAL PAGES</h4>
           <p className="current-lesson">{totalPages}</p>
-          <button type="button" className="update-progress-btn" onClick={this.addToReadingList}>
-            <span className="update-progress">ADD TO READING LIST</span>
+          <button type="button" className="update-progress-btn" onClick={read ? showReading : this.addToReadingList}>
+            <span className="update-progress">
+              {read ? 'REMOVE FROM READING LIST' : 'ADD TO READING LIST'}
+            </span>
           </button>
           {showUpdateForm ? (
             <div className="form-div">

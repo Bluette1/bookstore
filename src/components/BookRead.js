@@ -24,8 +24,9 @@ class Book extends React.Component {
   }
 
   handleRemoveReading() {
-    const { props: { reading } } = this;
-    axios.delete(`${httpProtocol}://${host}:${port}/readings/${reading.id}}`)
+    const { props: { reading, user } } = this;
+    axios.delete(`${httpProtocol}://${host}:${port}/readings/${reading.id}}`,
+      { headers: { Authorization: `Bearer ${user.authentication_token}` } })
       .then(() => {
         const { props: { reading, removeReading } } = this;
         removeReading(reading.book);
@@ -33,13 +34,13 @@ class Book extends React.Component {
   }
 
   handleUpdateReading() {
-    const { props: { reading } } = this;
+    const { props: { reading, user } } = this;
     const {
       pagesRead, currentChapter,
     } = this.state;
     axios.put(`${httpProtocol}://${host}:${port}/readings/${reading.id}`, {
       pagesRead, currentChapter,
-    })
+    }, { headers: { Authorization: `Bearer ${user.authentication_token}` } })
       .then(response => {
         const { props: { updateReading } } = this;
         updateReading(response.data);
@@ -127,8 +128,9 @@ class Book extends React.Component {
 
 Book.propTypes = {
   reading: PropTypes.objectOf(PropTypes.any).isRequired,
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
   removeReading: PropTypes.func.isRequired,
   updateReading: PropTypes.func.isRequired,
 };
 
-export default connect(null, { removeReading, updateReading })(Book);
+export default connect(state => ({ user: state.user }), { removeReading, updateReading })(Book);
